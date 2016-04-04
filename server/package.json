@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenchan13579/lchan.me.git"
+  },
+  "keywords": [
+    "leung",
+    "chan"
+  ],
+  "author": "leung wai chan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenchan13579/lchan.me/issues"
+  },
+  "homepage": "https://github.com/kenchan13579/lchan.me#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
