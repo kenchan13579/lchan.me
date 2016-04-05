@@ -1,0 +1,49 @@
+@media (max-width : 992px) {
+    body {
+        background-color: white;
+    }
+    .left-container,
+    .right-container
+    {
+        position:relative;
+        width:100%;
+        height:auto;
+        min-height:100vh;
+        z-index: 2;
+    }
+    .left-container {
+        z-index: 1;
+        margin-top:50px;
+        margin-bottom: 0;
+    }
+    .right-container {
+        margin-top:10px;
+
+    }
+    .left-container .padding .bottom {
+        display:none;
+    }
+    .left-container .padding .right {
+        width:8px;
+    }
+    .left-container .padding .right span{
+        display:none;
+    }
+    .content {
+        overflow: visible;
+    }
+    #hidden-menu {
+        width:100%;
+    }
+    .job-detail,#profolio-detail{
+        width:100%;
+    }
+    nav.fixed-navbar {
+        z-index: :3;
+        width:100%;
+        top:0;
+        left:0;
+
+    }
+
+}

@@ -1,0 +1,54 @@
+
+<section >
+    <h2 class="section-header">Porfolio</h2>
+    <div class="hr-line"></div>
+    <ul id="profolio-list" >
+        <li class="profolio-coverlist" ng-repeat="profolio in profolios track by $index">
+            <div class="overflow-hidden">
+                <img class="profolio-cover" ng-src="{{profolio.screenshot[0]}}" class="img-responsive">
+            </div>
+
+            <div class="profolio-border">
+                <div class="profolio-border-date">{{profolio.dates}}</div>
+                <div class="profolio-border-content">
+                    {{profolio.title | uppercase}}
+                    <div>
+                         <button type="button" class="btn-transparent" ng-click="profolioDetail.open($index)">Learn More</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </li>
+    </ul>
+
+</section>
+<div id="profolio-detail" ng-show="profolioDetail.isOpened" class="fade ">
+                <div id="profolio-detail-close">
+                     <a><i class="fa fa-2x fa-times-circle"  ng-click="profolioDetail.close()"></i></a>
+                </div>
+                <h3>{{profolioDetail.current.title}}</h3>
+                <h5>{{profolioDetail.current.dates}}</h5>
+                <div class="profolio-current-photo">
+                        <img  ng-src="{{profolioDetail.currentGalleryPic}}">
+                </div>
+                <ul  class="profolio-gallery">
+                    <li ng-repeat="imglink in profolioDetail.current.screenshot" ng-click="profolioDetail.setGalleryPic($index)"  ng-class="{'active':profolioDetail.isCurrentPic($index)}">
+                    <img ng-src="{{imglink}}">
+                    <div class="gallery-mask"></div>
+                    </li>
+                </ul>
+
+                 <div class="hr-line"></div>
+                <p ng-repeat="desc in profolioDetail.current.description">{{desc}}</p>
+                <ul class="job-detail-langused" >
+                    <li ng-repeat="lang in profolioDetail.current.skillsUsed">
+                        {{lang}}
+                    </li>
+                </ul>
+
+                <center>
+                <a ng-show="profolioDetail.current.github" ng-href="{{profolioDetail.current.github}}" class="btn-transparent-reverse" >See Github Repo</a>
+                <a ng-href="{{profolioDetail.current.link}}" class="btn-transparent-reverse" >Go to Website</a>
+                </center>
+</div>

@@ -1,0 +1,61 @@
+{
+    "proficient": [{
+        "language": "HTML5",
+        "proficiency": 90
+    }, {
+        "language": "CSS3",
+        "proficiency": 90
+    }, {
+        "language": "Sass",
+        "proficiency": 75
+    }, {
+        "language": "JavaScript",
+        "proficiency": 80
+    }, {
+        "language": "jQuery",
+        "proficiency": 85
+    }, {
+        "language": "AngularJS",
+        "proficiency": 80
+    }, {
+        "language": "Java",
+        "proficiency": 80
+    }, {
+        "language": "Node.js",
+        "proficiency": 75
+    }, {
+        "language": "Jade",
+        "proficiency": 90
+    }, {
+        "language": "MySQL",
+        "proficiency": 70
+    }, {
+        "language": "Python",
+        "proficiency": 70
+    },{
+        "language" : "Bootstrap",
+        "proficiency" : 90
+        }],
+    "familiar": [{
+        "language": "PHP",
+        "proficiency": 50
+    }, {
+        "language": "MongoDB",
+        "proficiency": 50
+    }, {
+        "language": "C",
+        "proficiency": 40
+    }, {
+        "language": "Ruby on Rails",
+        "proficiency": 50
+    }, {
+        "language": "GO",
+        "proficiency": 50
+    },{
+        "language" : "Scala",
+        "proficiency" :45
+        }],
+    "tools": [
+        "Git", " Sublime", "Eclipse", "Linux", "Selenium"
+    ]
+}

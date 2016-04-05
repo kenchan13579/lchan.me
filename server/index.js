@@ -3,6 +3,7 @@ let process = require("process");
 let express = require("express");
 let config = require("./config");
 let morgan = require("morgan"),
+    path = require("path"),
 	serveStatic = require("serve-static"),
 	cookieParser = require("cookie-parser"),
 	cookieSession = require('cookie-session'),
@@ -13,9 +14,9 @@ app.set("view engine","jade");
 app.use(cookieSession(config.SESSION_OPTIONS));
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());€
+app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(serveStatic(__dirname + "/public/dist"))
+app.use(serveStatic(path.resolve("../lchan.me")));
 
 app.get("/", (req, res) => {
 	res.end("developing");

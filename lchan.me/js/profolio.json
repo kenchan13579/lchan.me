@@ -1,0 +1,57 @@
+ [{
+     "title": "Aggregated MOOC Site",
+     "dates": "Sept 2015 - Nov 2015",
+     "screenshot": [
+         "img/porfolio/aggregatedSite/p1.jpg",
+         "img/porfolio/aggregatedSite/p2.jpg",
+         "img/porfolio/aggregatedSite/p3.jpg",
+         "img/porfolio/aggregatedSite/p4.jpg",
+         "img/porfolio/aggregatedSite/p5.jpg"
+     ],
+     "skillsUsed": ["AngularJS", "JavaScript", "HTML", "CSS", "PHP", "Java", "Jsoup", "JDBC", "MySQL", "jQuery", "Object Oriented Design"],
+     "description": ["Scraped data from popular massive open online courses and aggregated into one site in full stack"],
+     "link" : "http://www.sjsu-cs.org/cs160/sec1group2/",
+     "github" : "https://github.com/kenchan13579/CS160_web_mashup"
+ }, {
+     "title": "Discover San Jose",
+     "dates": "Feb 2015 - May 2015",
+     "screenshot": [
+         "img/porfolio/dsj/p1.jpg",
+         "img/porfolio/dsj/p2.jpg",
+         "img/porfolio/dsj/p3.jpg",
+         "img/porfolio/dsj/p4.jpg"
+     ],
+     "skillsUsed": ["PHP", "CSS", "HTML", "WordPress", "PhotoShop", "Illustrator"],
+     "description": ["Developed a new eCommerce website in a group of 5  using word-press for a client with Agile Development methodology",
+         "Created sprint backlog based on client's user stories", "Managed the Scrum as Scrum Master for one of the sprints and distributed works among the team in order to complete the objective on time"
+     ],
+     "link": "http://shopdiscoversanjose.com/",
+     "github" : null
+ }, {
+     "title": "Restaurant Reservation System",
+     "dates": "Oct 2015 - Dec 2015",
+     "screenshot": [
+         "img/porfolio/restarant/r1.jpg",
+         "img/porfolio/restarant/r2.jpg",
+         "img/porfolio/restarant/r3.jpg",
+         "img/porfolio/restarant/r4.jpg"
+     ],
+     "skillsUsed": ["Java", "JDBC", "JavaFX", "MySQL", "Object Oriented Design"],
+     "description": ["Design and develop a restaurant reservation application"],
+     "link": "https://github.com/kenchan13579/CS157A-Project_Batman_Restaurant",
+     "github" : "https://github.com/kenchan13579/CS157A-Project_Batman_Restaurant"
+ }, {
+     "title": "Sure88 Insurance Brokers LLC",
+     "dates": "Nov 2013 - May 2015",
+     "screenshot": [
+         "img/porfolio/sure88/p1.jpg",
+         "img/porfolio/sure88/p2.jpg"
+     ],
+     "skillsUsed": ["HTML", "CSS", "JavaScript", "jQuery", "PHP", "MySQL"],
+     "description": [
+         "Plan and develop a responsive mobile friendly company website with strong emphasis on user's experience",
+         "Made insurance quotings more efficient by implementing user friendly online form submission system which dramatically decreases the time acquiring client info and speed up the workflow"
+     ],
+     "link": "http://www.sure-88.com",
+     "github" : null
+ }]

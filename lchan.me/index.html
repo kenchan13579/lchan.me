@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ken" ng-controller="myCtrl">
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <meta charset="UTF-8">
+        <meta name="description" content='Leung Wai Chan (Ken). "The secret of getting ahead is getting started." Something little to demostrate my skill set'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leung Wai Chan</title>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/main-small.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="spinner">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+        </div>
+        <div class="left-container">
+            <div class="thumbnail">
+                <div class="left-corner-triangle"></div>
+                <div class="profileThumbnail">
+                    <img src="img/profile.jpg" alt="leungwaichanprofilepic">
+                </div>
+            </div>
+            <div class="padding">
+                <div class="top"></div>
+                <div class="left"></div>
+                <div class="right">
+                    <span>
+                        <p ng-repeat="w in section track by $index">{{w}}</p>
+                    </span>
+                </div>
+                <div class="bottom"></div>
+            </div>
+            <div class="intro">
+                <h4><em>Hello! My Name Is</em></h5>
+                <h1 class="my-name">Ken Chan</h1>
+                <h2 class="has-underline">Web Developer</h3>
+                <a href="leung-chan-resume.pdf" class="btn-transparent" target="_blank"><i class="fa fa-cloud-download"></i> Resume</a>
+                <a href="http://www.linkedin.com/in/leungwaichan" class="btn-transparent" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIn</a>
+                <a href="https://github.com/kenchan13579" class="btn-transparent" target="_blank"><i class="fa fa-github"></i> Github</a>
+                <!-- <em><p style="font-size:0.7em;">Welcome my friend~ You are the {{views}}<span class="shortdate">th</span> visitor at my page <i class="fa fa-smile-o"></i></p></em> -->
+            </div>
+        </div>
+        <nav class="fixed-navbar">
+            <a href="#" class="btn-blue btn-toTop" go-top type="button" style="cursor:default;">it's me</a>
+            <button id="menu-icon" type="button" ng-click="toggleMenu()" ><i ng-show="!menu" class="fa fa-2x fa-bars"></i><i ng-show="menu" class="fa fa-2x fa-times"></i></button>
+        </nav>
+        <div class="right-container" scroll-spy>
+            <div id="hidden-menu"  ng-show="menu" class="fade">
+                <p class="title-menu">Menu</p>
+                <ul >
+                    <li spy="aboutme"><a go-to  ng-href="#aboutme">About Me</a></li>
+                    <li spy="education"><a go-to  ng-href="#education">Education</a></li>
+                    <li spy="employment"><a go-to  ng-href="#employment">Employment</a></li>
+                    <li spy="profolio"><a go-to  ng-href="#profolio">Profolio</a></li>
+                    <li spy="myskills"><a go-to  ng-href="#myskills">Skills</a></li>
+                    <li spy="contact"><a go-to  ng-href="#contact">Email Me</a></li>
+                </ul>
+            </div>
+            <div id="right-content" class="content">
+                <div class="job-detail fade" ng-show="jobDetailPage" >
+                    <div id="job-detail-close">
+                        <a><i class="fa fa-2x fa-times-circle"  ng-click="jobDetailPage=false"></i></a>
+                    </div>
+                    <h2>{{jobDetail.jobTitle}}</h2>
+                    <h5>{{jobDetail.name}}</h5>
+                    <p>{{jobDetail.date}} | {{jobDetail.location}}</p>
+                    <ul class="job-detail-duties">
+                        <li class="fa" ng-repeat="duty in jobDetail.duties">{{duty}}</li>
+                    </ul>
+                    <a ng-href="{{jobDetail.link}}" ng-if="jobDetail.img"><img ng-src="{{jobDetail.img}}" ></a>
+                    <div class="hr-line"></div>
+                    <p>Tools used:</p>
+                    <ul class="job-detail-langused">
+                        <li ng-repeat="lang in jobDetail.languages">{{lang}}</li>
+                    </ul>
+                </div>
+                <div id="aboutme">
+                    <div class="bg-blue">
+                        <h3 class="quote">The secret of getting ahead is getting started.</h3>
+                    </div>
+                    <section style="padding-top:0px">
+                        <div class="introduction">
+                            <div class="profile-2">
+                                <img  src="img/ken_1.jpg" alt="leungwaichanprofilepic">
+                            </div>
+                            <h3 class="section-header">
+                            Hi There
+                            </h3>
+                            <div class="hr-line"></div>
+                            <p>I am a guy who loves technology and currently a student at San Jose State University pursuing a bachelor degree of Computer Science. My programming career began three years ago when I discovered my love to the technology world. I've been more comfortable and passionate about software programming and technology as my experience being broaden by various projects and application that I got involved . As a result, I grow a lot of interests into programming and like to learn new things since the learning process gives me fun time. </p>
+                            <p>In the programming world, there are various type of subject like Big Data, mobile development, or quality assurance. Among those , I found web development most fascinating since i am a visual person and it can give me the look and feel right away!  </p>
+                            <p>Although I love programming, I am not very nerdy that at my leisure time I'd like to sit down and enjoy pleasant music. Or, playing some basketball games in the weekend with friends just to get some sweats :)</p>
+                        </div>
+                        </section><!-- introduction end -->
+                    </div>
+                    <section id="education">
+                        <h2 class="section-header">Education</h2>
+                        <div class="hr-line"></div>
+                        <div class="school">
+                            <p class="bolder"><i class="fa fa-calendar"></i> 2011 - 2015 (Anticipated)</p>
+                            <p> B.S., Computer Science, Mathematics (Minor)<p>
+                                <p class="bolder"><i class="fa fa-graduation-cap"></i>San Jose State University</p>
+                                <p style="margin:0">Relevant Coursework</p>
+                                <ul>
+                                    <li>​Structures and Algorithms</li>
+                                    <li>Object­-Oriented Design</li>
+                                    <li>Computer Network Managements</li>
+                                    <li>Database Management Systems</li>
+                                    <li>Server Side Programming</li>
+                                </ul>
+                                <div class="underline"></div>
+                            </div>
+                        </section>
+                        <section id="employment">
+                            <h2 class="section-header">Employment</h2>
+                            <div class="hr-line"></div>
+                            <ul id="time-line">
+                                <li>
+                                    <div class="timeline-circle">
+                                        <div class="box-left">
+                                            <p class="job-title">Web Developer Intern</p>
+                                            <p class="name">SURE88 Insurance brokers LLC.</p>
+                                            <p class="name">San Jose, CA</p>
+                                            <button ng-click="getJob('sure88')">More</button>
+                                            <p class="period"> Nov 2013</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="timeline-circle" >
+                                        <div class="box-right">
+                                            <p class="job-title">Web Engineer Intern</p>
+                                            <p class="name">Electronics For Imaging</p>
+                                            <p class="name">Fremont, CA</p>
+                                            <button ng-click="getJob('efi')">More</button>
+                                            <p class="period">June 2015
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+                        <profolio id="profolio" ng-controller="profolioCtrl" ></profolio>
+                        <section id="myskills" class="skills">
+                            <h2 class="section-header">Skills</h2>
+                            <div class="hr-line"></div>
+                            <h3 class="text-center">Proficient</h3>
+                            <ul class="proficient" >
+                                <li ng-repeat="i in proficient" ng-mouseenter="showmore(i.proficiency)" ng-mouseleave="clearBar()">
+                                    {{i.language}}
+                                    <div class="skill-proficient-more">
+                                        <div class="skill-proficiency">
+                                            <div class="skill-caret"></div>
+                                            {{i.proficiency | skillAsText}}
+                                            <div class="skill-bar">
+                                                <div class="skill-bar-inner" ng-style="proficiencyCSS" ></div>
+                                                <span class="skill-bar-percent" ng-style="proficiencyPt">{{i.proficiency}}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <h3 class="text-center">Familiar </h3>
+                            <ul class="familiar" >
+                                <li ng-repeat="i in familiar" ng-mouseenter="showmore(i.proficiency)" ng-mouseleave="clearBar()">
+                                    {{i.language}}
+                                    <div class="skill-proficient-more">
+                                        <div class="skill-proficiency">
+                                            <div class="skill-caret"></div>
+                                            {{i.proficiency | skillAsText}}
+                                            <div class="skill-bar">
+                                                <div class="skill-bar-inner" ng-style="proficiencyCSS" ></div>
+                                                <span class="skill-bar-percent" ng-style="proficiencyPt">{{i.proficiency}}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <h3 class="text-center">Tools</h3>
+                            <ul class="proficient" >
+                                <li ng-repeat="i in tools">
+                                    {{i}}
+                                </li>
+                            </ul>
+                        </section>
+                        <section id="contact" >
+                            <h2 class="section-header">More? Send me a message! </h2>
+                            <div ng-show="loading && !done" class="three-quarters-loader">
+                                Loading…
+                            </div>
+                            <div ng-show="!loading && done">
+                                <p>{{result.msg}}</p>
+                            </div>
+                            <form ng-hide="loading || done" name="myform" novalidate>
+                                <ul>
+                                    <li>
+                                        <input type="text" name="name" ng-model="message['name']" ng-change="requiredValidate(name)" required>
+                                        <label ng-class="{'has-input' :  message['name']}" flying-label>Name</label>
+                                    </li>
+                                    <li>
+                                        <input ng-class="{'invalid':invalidEmail}" type="text" ng-model="message['email']" required ng-change="emailValidate()">
+                                        <label ng-class="{'has-input' : message['email']}" flying-label>Email</label>
+                                    </li>
+                                    <li>
+                                        <textarea  ng-model="message['msg']" required></textarea>
+                                        <label ng-class="{'has-input' :  message['msg']}" flying-label>Message</label>
+                                    </li>
+                                </ul>
+                                <input type="text" class="hidden" ng-model="user">
+                                <ul ng-show="errors">
+                                    <li class="msg-invalid" ng-repeat="e in errors"><i class="fa fa-exclamation-circle"></i> {{e}}</li>
+                                </ul>
+                                <div class="text-center"> <button ng-click="send()" class="btn-blue">Send</button></div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </body>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+            <script src="js/angular-cookies.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-animate.min.js"></script>
+            <script src="js/appCtrl.js"></script>
+            <script src="js/profolioCtrl.js"></script>
+            <script src="js/myFilters.js"></script>
+            <script src="js/myService.js"></script>
+            <script src="js/myDirectives.js"></script>
+        </html>
