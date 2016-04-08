@@ -1,14 +1,23 @@
 var Crypto = require("crypto-js");
 var config = require("../config");
 var User = require("../models/weiboFollower/User.js");
+var Session = require("../models/weiboFollower/Session.js");
 function encrypt(pw) {
-    return Crypto.AES.encrypt(pw, config.salt);
+    return Crypto.AES.encrypt(pw, config.salt).toString();
 }
 
 function decrypt(text) {
     var bytes  = Crypto.AES.decrypt(text, config.salt);
     var plaintext = bytes.toString(Crypto.enc.Utf8);
     return plaintext;
+}
+
+function createToken(id) {
+    let o = {
+        id: id,
+        date: Date.now(),
+    };
+    return Crypto.AES.encrypt(JSON.stringify(o), config.salt).toString();
 }
 exports.signup = function(id, pw){
     var user = new User({
@@ -18,9 +27,12 @@ exports.signup = function(id, pw){
     });
     var q = new Promise(function(resolve, reject){
         user.save(function(err, res){
-            console.log("err",err,"res",res);
             if (err) {
-                reject(err.message);
+                let errMsg = err.message;
+                if (errMsg.indexOf("duplicate") != -1) {
+                    errMsg = "User name has been used"
+                }
+                reject(errMsg);
             } else {
                 resolve(res);
             }
@@ -30,16 +42,44 @@ exports.signup = function(id, pw){
 };
 
 
-exports.login = function(id, pw){
+exports.loginByPassowrd = function(id, pw){
     var q = new Promise((resolve, reject) => {
         User.findOne({
             id: id,
             pw: encrypt(pw)
         }, (err, doc) => {
             if ( err ) {
-                reject(err.message);
+                reject("Authentication fails");
             } else {
-                resolve(doc);
+                let token = createToken(id);
+                let session = new Session({
+                    id: id,
+                    token: token,
+                });
+                session.save((err, result) => {
+                    if (err) {
+                        reject(err.message);
+                    }
+                    resolve(token);
+                });
+            }
+        });
+    });
+    return q;
+}
+exports.loginByToken = function(id, token) {
+     var q = new Promise((resolve, reject) => {
+        Session.find({
+            id: id,
+            token: token
+        }, (err, doc) => {
+            if ( err ) {
+                reject(err.message);
+            } 
+            if (doc.length > 0) {
+                resolve();
+            } else {
+                reject("No session found");
             }
         });
     });

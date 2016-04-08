@@ -1,5 +1,4 @@
 "use strict";
-require("babel-core").transform("code");
 let process = require("process");
 let express = require("express");
 let config = require("./config");
@@ -24,7 +23,7 @@ app.use(cookieSession(config.SESSION_OPTIONS));
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser(config.salt));
 
 app.use("/" , serveStatic(path.resolve("../lchan.me")));
 app.use("/api", require("./routes/api"));
@@ -32,6 +31,8 @@ app.use("/projects", projectRouter);
 
 let PORT = process.argv[process.argv.length -1 ] || config.PORT || 80;
 PORT = 8089;
+
+process.env.NODE_ENV = "dev";
 if (process.env.NODE_ENV === 'dev') {
   // only use in development
   app.use(errorhandler())
