@@ -16,6 +16,8 @@ var mongoose = require("mongoose");
 mongoose.connect(config.database);
 mongoose.connection.on("connected", () => console.log("connected"));
 mongoose.connection.on("error", (err) => console.log(err));
+
+
 app.set("views", ["../weiboFollower/dist/"]);
 app.set("view engine","jade");
 

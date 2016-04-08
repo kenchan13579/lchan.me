@@ -1,5 +1,8 @@
 var router = require("express").Router();
 var authenticate = require("../controllers/authenticate");
+var serveStatic = require("serve-static");
+var path = require("path");
+router.use(serveStatic(path.resolve("../weiboFollower/dist/")));
 router.get("/signup", (req, res) => res.render("signup"));
 
 router.use("/app",(req,res,next) => {
