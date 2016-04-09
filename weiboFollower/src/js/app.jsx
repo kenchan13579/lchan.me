@@ -6,53 +6,71 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			id: "",
-			pw: "",
+			message: "",
 			submitProcessing: false,
 		};
+		this.oauthWindow = null;
 	}
-	idOnChange(e) {
-		this.setState({id: e.target.value});
-	}
-	pwOnChange(e) {
-		this.setState({pw: e.target.value});
-	}
-	submit(e) {
-		const {id, pw} = this.state;
-		this.setState({submitProcessing: true});
-		let that = this;
-		request
-			.post("/api/weibo_login")
-			.send({id:id, pw: pw})
-			.end((err, res) => {
-				if (err || !res.ok) {
+	checkClosed() {
+		let q = new Promise((resolve, reject) => {
+			this.timer = null;
 
-				} else {
+			this.timer = setInterval(()=> {
+				if (this.oauthWindow != null &&
+					this.oauthWindow.location.origin == window.location.origin) {
+					let params = this.oauthWindow.location.search;
+					let index = params.indexOf("code=") + 5;
+					this.accessToken = params.slice(index);
+					this.timer = null;
+					this.oauthWindow.close();
+					this.oauthWindow = null	;
 
+					resolve(this.accessToken);
+				} else if (this.oauthWindow == null || this.oauthWindow.closed) {
+					this.timer = null;
+					this.oauthWindow = null;
+					reject("authorization failed");
 				}
-			});
+
+			}, 500);
+		});
+		return q;
+		
+	}
+	openAuthWindow(url) {
+		console.log(this.oauthWindow);
+		if (this.oauthWindow == null || this.oauthWindow.closed) {
+
+			this.oauthWindow = window.open(url, "Weibo OAuth", "height=600,width=800,resizable,scrollbars");
+		} else {
+			this.oauthWindow.focus();
+		}
+		return this.checkClosed();
+
+	}
+	loginWeibo(e) {
+		this.setState({message:"Waiting...",submitProcessing:true});
+		const URL = window.location.href;
+		const API = "https://api.weibo.com/oauth2/authorize?client_id=599453243&response_type=code&redirect_uri=" + URL ;
+		this.openAuthWindow(API)
+			.then((token) => {
+				let params = request
+							.post("/api/weibo/auth")
+							.send({code: token})
+							.end((err, res) => {
+								console.log(err,res);
+							});
+								
+			})
+			.catch((msg) => this.setState({message:msg, submitProcessing:false}));
 	}
 	render() {
 		const {id, pw, submitProcessing} = this.state;
 		return (
 			<div className="container text-center">
 				<WeiboList/>
-				<p className="bg-info">輸入微博号</p>
-				<form className="form-inline">
-					<div className="form-group">
-						ID:
-						<input className="form-control" value={id} onChange={this.idOnChange}/>
-					</div>
-					<div className="form-group">
-						Password
-						<input className="form-control" value={pw} onChange={this.pwOnChange}/>
-					</div>
-					{
-						submitProcessing ? 
-							<i className="fa fa-spin fa-spinner"></i>:
-							<button onClick={this.submit} className="btn btn-primary">Login</button>
-					}	
-				</form>
+				<hr/>
+				<button onClick={this.loginWeibo.bind(this)} className="btn btn-primary">登入微博号</button>
 			</div>
 		);
 	}

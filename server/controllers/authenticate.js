@@ -51,6 +51,7 @@ exports.loginByPassowrd = function(id, pw){
             if ( err ) {
                 reject("Authentication fails");
             } else {
+
                 let token = createToken(id);
                 let session = new Session({
                     id: id,
@@ -73,6 +74,7 @@ exports.loginByToken = function(id, token) {
             id: id,
             token: token
         }, (err, doc) => {
+
             if ( err ) {
                 reject(err.message);
             } 

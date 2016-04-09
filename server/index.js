@@ -21,6 +21,7 @@ mongoose.connection.on("error", (err) => console.log(err));
 app.set("views", ["../weiboFollower/dist/"]);
 app.set("view engine","jade");
 
+// app.use(session({secret: config.salt, resave:true,saveUninitialized: true}));
 app.use(cookieSession(config.SESSION_OPTIONS));
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,8 +32,7 @@ app.use("/" , serveStatic(path.resolve("../lchan.me")));
 app.use("/api", require("./routes/api"));
 app.use("/projects", projectRouter);
 
-let PORT = process.argv[process.argv.length -1 ] || config.PORT || 80;
-PORT = 8089;
+let PORT = process.argv[process.argv.length -1 ] || config.PORT;
 
 process.env.NODE_ENV = "dev";
 if (process.env.NODE_ENV === 'dev') {

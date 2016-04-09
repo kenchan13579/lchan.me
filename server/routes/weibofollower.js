@@ -22,18 +22,26 @@ router.use("/app",(req,res,next) => {
 });
 
 router.get("/", function(req,res, next){
+	req.session.login_err = null;
 	const {id, token} = req.signedCookies;
 	if (id && token) {
 		authenticate
 			.loginByToken(id, token)
 			.then(() => {
-				console.log("test");
 				res.redirect("/projects/weiboFollower/app");
 				next();
 			})
-			.catch((err) => res.render("login"));
+			.catch((err) => {
+				console.log(err);
+				res.render("login", {
+					error: "Authentication failed",
+				})
+
+			});
 	} else {
-		res.render("login");
+		res.render("login", {
+			error: "ID/password is empty",
+		});
 	}
     
 });

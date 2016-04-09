@@ -1,7 +1,12 @@
 var router = require("express").Router();
 var moment = require("moment");
 var authenticate = require("../controllers/authenticate");
+var weiboAPI = require("./weiboAPI");
+
+
+router.use("/weibo", weiboAPI);
 router.post("/login", (req, res) => {
+    console.log(req.session);
    const {id, pw} = req.body;
     if (id && pw) {
         authenticate
@@ -10,17 +15,16 @@ router.post("/login", (req, res) => {
                 let aWeek = moment().add(1,"week").toDate();
                 res.cookie("token",token,{expires: aWeek,signed: true});
                 res.cookie("id",id,{expires: aWeek,signed: true});
+                req.session.login_err = null;
                 res.redirect("/projects/weiboFollower/app");
             })
             .catch(errMsg => {
+                req.session.login_err = errMsg;
                 res.redirect("back");
-                res.render("login", {error: errMsg});
             });
     } else {
+        req.session.login_err = "id/pw is empty";
         res.redirect("back");
-        res.render("login",{
-            error: "id/pw is empty",
-        })
     }
 });
 
@@ -51,5 +55,7 @@ router.post("/signup", (req,res) => {
         });
     }
 });
+
+
 
 module.exports = router;
