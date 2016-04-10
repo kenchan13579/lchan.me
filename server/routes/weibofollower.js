@@ -2,8 +2,8 @@ var router = require("express").Router();
 var authenticate = require("../controllers/authenticate");
 var serveStatic = require("serve-static");
 var path = require("path");
-router.use(serveStatic(path.resolve("../weiboFollower/dist/")));
-router.get("/signup", (req, res) => res.render("signup"));
+router.use(serveStatic(path.resolve("../weibofollower/dist/")));
+router.get("/signup", (req, res) => res.render("signup", {error: req.session.signup_err || ""}));
 
 router.use("/app",(req,res,next) => {
 	const {id,token} = req.signedCookies;
@@ -22,7 +22,6 @@ router.use("/app",(req,res,next) => {
 });
 
 router.get("/", function(req,res, next){
-	req.session.login_err = null;
 	const {id, token} = req.signedCookies;
 	if (id && token) {
 		authenticate
@@ -32,15 +31,14 @@ router.get("/", function(req,res, next){
 				next();
 			})
 			.catch((err) => {
-				console.log(err);
-				res.render("login", {
-					error: "Authentication failed",
-				})
-
+				res.clearCookie(id);
+				res.clearCookie(token);
+				res.render("login");
 			});
 	} else {
+		console.log("from /weibofollower", req.session);
 		res.render("login", {
-			error: "ID/password is empty",
+			error: req.session.login_err || "",
 		});
 	}
     
@@ -48,7 +46,7 @@ router.get("/", function(req,res, next){
 
 
 router.get("/app", (req, res) => {
-	res.render("weiboFollower");
+	res.render("weibofollower");
 });
 
 

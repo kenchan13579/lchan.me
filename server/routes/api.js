@@ -6,7 +6,7 @@ var weiboAPI = require("./weiboAPI");
 
 router.use("/weibo", weiboAPI);
 router.post("/login", (req, res) => {
-    console.log(req.session);
+   console.log(req.session);
    const {id, pw} = req.body;
     if (id && pw) {
         authenticate
@@ -35,24 +35,22 @@ router.post("/signup", (req,res) => {
             authenticate
                 .signup(id, pw)
                 .then(function(result){
-
                     res.redirect("/projects/weiboFollower");
                 })
                 .catch(function(errMsg){
+                    req.session.signup_err = errMsg;
                     res.redirect("back");
-                    res.render("signup", {error: errMsg});
-
                 });
 
         } else {
-            res.render("signup",{
-                error: "Password not the same"
-            });
+             console.log("fail4");
+            req.session.signup_err = "Password not the same";
+            res.redirect("back");
         }
     } else {
-        res.render("signup", {
-            error: "There is at least one empty field"
-        });
+         console.log("fail3");
+        req.session.signup_err = "There is at least one empty field";
+        res.redirect("back");
     }
 });
 

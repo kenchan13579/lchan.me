@@ -12,16 +12,14 @@ let morgan = require("morgan"),
 let projectRouter = require("./routes/project");
 let app  = express();
 var mongoose = require("mongoose");
-
 mongoose.connect(config.database);
 mongoose.connection.on("connected", () => console.log("connected"));
 mongoose.connection.on("error", (err) => console.log(err));
 
 
-app.set("views", ["../weiboFollower/dist/"]);
+app.set("views", ["../weibofollower/dist"]);
 app.set("view engine","jade");
 
-// app.use(session({secret: config.salt, resave:true,saveUninitialized: true}));
 app.use(cookieSession(config.SESSION_OPTIONS));
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
