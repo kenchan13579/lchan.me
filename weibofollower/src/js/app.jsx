@@ -8,8 +8,15 @@ class App extends React.Component {
 		this.state = {
 			message: "",
 			submitProcessing: false,
+			userInfo:[],
 		};
 		this.oauthWindow = null;
+	}
+	getChildContext() {
+		return this.state.userInfo;
+	}
+	componentWillMount() {
+		this.getAccountInfo();
 	}
 	checkClosed() {
 		let q = new Promise((resolve, reject) => {
@@ -35,10 +42,9 @@ class App extends React.Component {
 			}, 500);
 		});
 		return q;
-		
+
 	}
 	openAuthWindow(url) {
-		console.log(this.oauthWindow);
 		if (this.oauthWindow == null || this.oauthWindow.closed) {
 
 			this.oauthWindow = window.open(url, "Weibo OAuth", "height=600,width=800,resizable,scrollbars");
@@ -47,6 +53,18 @@ class App extends React.Component {
 		}
 		return this.checkClosed();
 
+	}
+	getAccountInfo() {
+		request
+			.get("/api/weibo/get_account_info")
+			.end((err, res) => {
+				if (err) {
+					console.error(err);
+				} else {
+					let info = JSON.parse(res.text);
+					this.setState({userInfo: info});
+				}
+			})
 	}
 	loginWeibo(e) {
 		this.setState({message:"Waiting...",submitProcessing:true});
@@ -58,22 +76,32 @@ class App extends React.Component {
 							.post("/api/weibo/auth")
 							.send({code: token})
 							.end((err, res) => {
-								console.log(err,res);
+								if (err) {
+									console.error(err);
+								} else {
+									this.setState({message: "Success", submitProcessing:false});
+									this.getAccountInfo();
+								}
 							});
-								
+
 			})
 			.catch((msg) => this.setState({message:msg, submitProcessing:false}));
 	}
 	render() {
-		const {id, pw, submitProcessing} = this.state;
+		const {id, message, pw, submitProcessing, userInfo} = this.state;
 		return (
 			<div className="container text-center">
-				<WeiboList/>
+				<WeiboList userInfo={userInfo}/>
 				<hr/>
+				<p>{message}</p>
 				<button onClick={this.loginWeibo.bind(this)} className="btn btn-primary">登入微博号</button>
 			</div>
 		);
 	}
+}
+
+App.childContextTypes = {
+	userInfo: React.PropTypes.Array,
 }
 
 ReactDom.render(<App/>, document.getElementById("app"));

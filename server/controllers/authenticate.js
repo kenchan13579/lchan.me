@@ -27,7 +27,6 @@ exports.signup = function(id, pw){
     });
     var q = new Promise(function(resolve, reject){
         user.save(function(err, res){
-            console.log(id,err,res);
             if (err) {
                 let errMsg = err.message;
                 if (errMsg.indexOf("duplicate") != -1) {
@@ -46,12 +45,12 @@ exports.signup = function(id, pw){
 exports.loginByPassowrd = function(id, pw){
     var q = new Promise((resolve, reject) => {
         User.findOne({
-            id: id,
-            pw: encrypt(pw)
+            id: id
         }, (err, doc) => {
-            if ( err ) {
-                reject("Authentication fails");
-            } else {
+            if ( err || doc == null) {
+                return reject("No such id");
+            }
+            if ( decrypt(doc.pw) == pw) {
                 let token = createToken(id);
                 let session = new Session({
                     id: id,
@@ -63,9 +62,10 @@ exports.loginByPassowrd = function(id, pw){
                     }
                     resolve(token);
                 });
+            } else {
+                reject("Wrong password");
             }
-                
-              
+
         });
     });
     return q;
@@ -76,13 +76,13 @@ exports.loginByToken = function(id, token) {
             id: id,
             token: token
         }, (err, doc) => {
-
-            if ( err ) {
-                reject(err.message);
-            } 
+            if ( err  ) {
+                return reject(err.message);
+            }
             if (doc.length > 0) {
                 resolve();
             } else {
+                console.log("no session found");
                 reject("No session found");
             }
         });

@@ -17,14 +17,23 @@ router.post("/auth" , (req, res) => {
 		.post("https://api.weibo.com/oauth2/access_token?" + params)
 		.end((err, result) => {
 			if (err) {
-				res.json(JSON.parse(result.text).error_description);
-			} 
+				return res.json(JSON.parse(result.text).error_description);
+			}
 			result = JSON.parse(result.text);
-			weiboCtrl.addToken(id, result)
-				.then(() => res.end());
-			
+			weiboCtrl
+				.addToken(id, result)
+				.then((uid, token, expiredDate) => {
+					res.end();
+				})
+				.catch((fail) => res.end(fail));
+
 		});
 });
 
-
+router.get("/get_account_info", (req, res) => {
+	const {id, token} = req.signedCookies;
+	weiboCtrl.getAccountInfo(id, token)
+		.then((info) => res.json(info))
+		.catch((errMsg) => res.error(400).end(errMsg));
+});
 module.exports = router;

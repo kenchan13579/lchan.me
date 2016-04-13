@@ -6,7 +6,6 @@ var weiboAPI = require("./weiboAPI");
 
 router.use("/weibo", weiboAPI);
 router.post("/login", (req, res) => {
-   console.log(req.session);
    const {id, pw} = req.body;
     if (id && pw) {
         authenticate

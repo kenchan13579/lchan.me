@@ -10,7 +10,7 @@ router.use("/app",(req,res,next) => {
 	if (!id || !token) {
 		res.redirect("/projects/weiboFollower");
 	} else {
-		
+
 		authenticate
 			.loginByToken(id, token)
 			.then(() => next())
@@ -18,7 +18,7 @@ router.use("/app",(req,res,next) => {
 				res.redirect("/projects/weiboFollower");
 			});
 	}
-	
+
 });
 
 router.get("/", function(req,res, next){
@@ -33,15 +33,16 @@ router.get("/", function(req,res, next){
 			.catch((err) => {
 				res.clearCookie(id);
 				res.clearCookie(token);
-				res.render("login");
+				res.render("login", {
+					error: req.session.login_err || "",
+				});
 			});
 	} else {
-		console.log("from /weibofollower", req.session);
 		res.render("login", {
 			error: req.session.login_err || "",
 		});
 	}
-    
+
 });
 
 

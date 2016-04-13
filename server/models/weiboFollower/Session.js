@@ -10,7 +10,7 @@ var UserSessionSchema = new Schema({
     created: {type:Date, default: Date.now},
 });
 
-var userSession = mongoose.model("user_session", UserSessionSchema);
+var userSessions = mongoose.model("user_sessions", UserSessionSchema);
 
 
-module.exports = userSession;
+module.exports = userSessions;
