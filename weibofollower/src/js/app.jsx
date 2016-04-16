@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import WeiboList from "./WeiboList";
+import {jsonToUrlParams} from "./helpers/utils";
 import request from "superagent";
 class App extends React.Component {
 	constructor() {
@@ -13,8 +14,9 @@ class App extends React.Component {
 		this.oauthWindow = null;
 	}
 	getChildContext() {
-		return this.state.userInfo;
+		return {userInfo: this.state.userInfo};
 	}
+
 	componentWillMount() {
 		this.getAccountInfo();
 	}
@@ -68,8 +70,14 @@ class App extends React.Component {
 	}
 	loginWeibo(e) {
 		this.setState({message:"Waiting...",submitProcessing:true});
-		const URL = window.location.href;
-		const API = "https://api.weibo.com/oauth2/authorize?client_id=599453243&response_type=code&redirect_uri=" + URL ;
+		let params = {
+			scope: "all",
+			client_id: "599453243",
+			response_type: "code",
+			redirect_uri: window.location.href,
+			scope: "friendships_groups_write"
+		};
+		const API = "https://api.weibo.com/oauth2/authorize?" + jsonToUrlParams(params);
 		this.openAuthWindow(API)
 			.then((token) => {
 				let params = request
@@ -101,7 +109,7 @@ class App extends React.Component {
 }
 
 App.childContextTypes = {
-	userInfo: React.PropTypes.Array,
+	userInfo: React.PropTypes.array,
 }
 
 ReactDom.render(<App/>, document.getElementById("app"));
