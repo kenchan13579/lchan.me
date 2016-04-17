@@ -1,4 +1,5 @@
-var Schema = require("mongoose").Schema;
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
 var WorkoutSchema = new Schema({
 	id: String,
@@ -8,4 +9,4 @@ var WorkoutSchema = new Schema({
 }, {minimize: false});
 
 WorkoutSchema.index({id: 1, date: 1}, {unique: true});
-export default mongoose.model("workouts", WorkoutSchema);
+module.exports = mongoose.model("workouts", WorkoutSchema);
