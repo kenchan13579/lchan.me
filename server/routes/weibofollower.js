@@ -1,5 +1,5 @@
 var router = require("express").Router();
-var authenticate = require("../controllers/authenticate");
+var authenticate = require("../services/authenticate");
 var serveStatic = require("serve-static");
 var path = require("path");
 router.use(serveStatic(path.resolve("../weibofollower/dist/")));

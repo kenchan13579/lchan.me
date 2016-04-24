@@ -61,7 +61,7 @@ exports.editWorkout = function(id,date, workout) {
 	});
 	return q;
 }
-exports.getWorkoutHistory = function() {
+exports.getWorkoutHistory = function(id) {
 	var q = new Promise((resolve, reject) => {
 	workouts.find({
 			id: id,

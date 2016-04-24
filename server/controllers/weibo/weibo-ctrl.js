@@ -1,5 +1,5 @@
 let User = require("../../models/weiboFollower/User");
-let authenticate = require("../authenticate");
+let authenticate = require("../../services/authenticate");
 let request = require("superagent");
 
 function callWeiboShowUsers(weiboTokens) {
