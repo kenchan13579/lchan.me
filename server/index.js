@@ -17,7 +17,7 @@ mongoose.connection.on("connected", () => console.log("connected"));
 mongoose.connection.on("error", (err) => console.log(err));
 
 
-app.set("views", ["../weibofollower/dist"]);
+app.set("views", ["../weibofollower/dist", "../liftbro/dist"]);
 app.set("view engine","jade");
 
 app.use(cookieSession(config.SESSION_OPTIONS));
